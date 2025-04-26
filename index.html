@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Celebration</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0a0a2a 0%, #1a1a4a 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('h"C:\Users\nikhi\Downloads\henry cheng • the raven cycle.jpeg"');
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            z-index: -1;
+            filter: brightness(1.2);
+        }
+        
+        .bg-image.active {
+            opacity: 0.4;
+        }
+        
+        .container {
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+        
+        #link {
+            color: #aaccff;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 2rem;
+            display: inline-block;
+            padding: 1.2rem 2.4rem;
+            border: 2px solid #4d79ff;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            background: rgba(26, 26, 74, 0.7);
+            backdrop-filter: blur(5px);
+            margin-top: 2rem;
+            text-shadow: 0 0 10px rgba(170, 204, 255, 0.5);
+        }
+        
+        #link:hover {
+            background: rgba(77, 121, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        #name-input {
+            margin: 2rem auto;
+            padding: 1.2rem;
+            font-size: 1.4rem;
+            display: none;
+            width: 320px;
+            max-width: 80%;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            color: #0a0a2a;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        #submit-btn {
+            padding: 1.2rem 2.4rem;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, #4d79ff 0%, #8a2be2 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        
+        #submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+        }
+        
+        #message {
+            font-size: 2.5rem;
+            margin: 2rem auto;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 800px;
+        }
+        
+        .message-line {
+            margin: 0.8rem 0;
+            overflow: hidden;
+            line-height: 1.6;
+            text-align: center;
+            min-height: 1.6em;
+        }
+        
+        .message-word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+    font-size: 3rem;
+    margin: 0 0.3rem;
+    color: #ffffff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+        }
+        
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px;
+            animation: explode 1.5s ease-out forwards;
+            transform: scale(0);
+            left: 50%;
+            top: 50%;
+        }
+        
+        @keyframes explode {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+        
+        .love-message {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa3a3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        .wrong-message {
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            padding: 2rem;
+            background: rgba(10, 10, 42, 0.8);
+            border-radius: 15px;
+            display: inline-block;
+            margin-top: 2rem;
+            border: 2px solid #ff6b6b;
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-image" id="bg-image"></div>
+    <div class="stars" id="stars"></div>
+    <div class="container">
+        <div id="link">Click to Reveal the Magic</div>
+        <input type="text" id="name-input" placeholder="Enter your name">
+        <button id="submit-btn">Enter the Realm</button>
+        <div id="message"></div>
+    </div>
+    
+    <script>
+        const link = document.getElementById('link');
+        const nameInput = document.getElementById('name-input');
+        const submitBtn = document.getElementById('submit-btn');
+        const message = document.getElementById('message');
+        const starsContainer = document.getElementById('stars');
+        const bgImage = document.getElementById('bg-image');
+        
+        const validNames = ['noah', 'nikhil', 'tanishq', 'taani', 'tani', 'bunny'];
+        const loveMessage = [
+            "I LOVE YOU!",
+            "Thank you for being with me",
+            "You make my world beautiful",
+            "Every moment with you is special",
+            "You are the most precious person in my life"
+        ];
+        
+        // Create stars
+        for (let i = 0; i < 300; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            
+            const size = Math.random() * 4;
+            const left = Math.random() * 100;
+            const top = Math.random() * 100;
+            const delay = Math.random() * 2;
+            const duration = Math.random() * 3 + 1;
+            
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.left = `${left}%`;
+            star.style.top = `${top}%`;
+            star.style.animationDelay = `${delay}s`;
+            star.style.animationDuration = `${duration}s`;
+            
+            starsContainer.appendChild(star);
+        }
+        
+        link.addEventListener('click', function() {
+            link.style.display = 'none';
+            nameInput.style.display = 'block';
+            submitBtn.style.display = 'inline-block';
+            nameInput.focus();
+        });
+        
+        nameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkName();
+            }
+        });
+        
+        submitBtn.addEventListener('click', checkName);
+        
+        function checkName() {
+            const name = nameInput.value.trim().toLowerCase();
+            
+            if (validNames.includes(name)) {
+                // Correct name - show celebration
+                nameInput.style.display = 'none';
+                submitBtn.style.display = 'none';
+                
+                // Show background image
+                bgImage.classList.add('active');
+                
+                // Create fireworks
+                createFireworks();
+                
+                // Show love message with slow animation
+                showLoveMessage();
+            } else {
+                // Wrong name
+                message.innerHTML = '<div class="wrong-message">You are not the chosen one</div>';
+            }
+        }
+        
+        function createFireworks() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'firework';
+                    firework.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Random properties
+                    const size = Math.random() * 10 + 5;
+                    const left = 50 + (Math.random() - 0.5) * 20;
+                    const top = 50 + (Math.random() - 0.5) * 20;
+                    const delay = Math.random() * 0.5;
+                    
+                    firework.style.width = `${size}px`;
+                    firework.style.height = `${size}px`;
+                    firework.style.left = `${left}%`;
+                    firework.style.top = `${top}%`;
+                    firework.style.animationDelay = `${delay}s`;
+                    
+                    document.body.appendChild(firework);
+                    
+                    // Remove firework after animation completes
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 1500 + delay * 1000);
+                }, i * 200);
+            }
+        }
+        
+        function showLoveMessage() {
+            message.innerHTML = '';
+            
+            loveMessage.forEach((line, lineIndex) => {
+                const lineDiv = document.createElement('div');
+                lineDiv.className = 'message-line love-message';
+                
+                const words = line.split(' ');
+                words.forEach((word, wordIndex) => {
+                    const wordSpan = document.createElement('span');
+                    wordSpan.className = 'message-word';
+                    wordSpan.textContent = word;
+                    
+                    // Add space after word except the last one
+                    if (wordIndex < words.length - 1) {
+                        wordSpan.textContent += ' ';
+                    }
+                    
+                    lineDiv.appendChild(wordSpan);
+                    
+                    // Animate each word with delay
+                    setTimeout(() => {
+                        wordSpan.style.opacity = '1';
+                        wordSpan.style.transform = 'translateY(0)';
+                    }, lineIndex * 2500 + wordIndex * 600); // Slower animation
+                });
+                
+                message.appendChild(lineDiv);
+            });
+            
+            // Add more fireworks after all text appears
+            setTimeout(() => {
+                createFireworks();
+            }, loveMessage.length * 2500 + loveMessage[loveMessage.length-1].split(' ').length * 600);
+        }
+    </script>
+</body>
+</html>
